@@ -1,0 +1,23 @@
+{
+  "name": "arkanoid-game",
+  "version": "1.0.0",
+  "description": "Полнофункциональная игра Арканоид, созданная для изучения HTML5 Canvas API.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "canvas",
+    "game",
+    "arkanoid",
+    "breakout",
+    "educational"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^7.1.12"
+  }
+}
