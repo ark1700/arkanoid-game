@@ -30,6 +30,11 @@ class Game {
     this.lives = INITIAL_LIVES;
     this.state = "start"; // 'start', 'playing', 'paused', 'gameover', 'won'
 
+    // Контроль FPS
+    this.fps = 60;
+    this.frameInterval = 1000 / this.fps; // ~16.67ms для 60 FPS
+    this.lastFrameTime = 0;
+
     // Настройка touch устройства
     preventTouchDefaults(this.canvas);
 
@@ -192,11 +197,25 @@ class Game {
     }
   }
 
-  gameLoop() {
+  gameLoop(currentTime = 0) {
+    requestAnimationFrame((time) => this.gameLoop(time));
+
+    // Вычисляем время, прошедшее с последнего кадра
+    const deltaTime = currentTime - this.lastFrameTime;
+
+    // Пропускаем кадр, если прошло недостаточно времени
+    if (deltaTime < this.frameInterval) {
+      return;
+    }
+
+    // Сохраняем время последнего отрисованного кадра
+    // Корректируем остаток времени для точности
+    this.lastFrameTime = currentTime - (deltaTime % this.frameInterval);
+
+    // Обновляем и рисуем игру
     this.update();
     this.particles.update();
     this.draw();
-    requestAnimationFrame(() => this.gameLoop());
   }
 
   restart() {
